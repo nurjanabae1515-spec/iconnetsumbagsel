@@ -1,8 +1,8 @@
 
 (function () {
 
-  const WEBHOOK_URL = 'https://n8n-production-f10d3.up.railway.app/webhook/iconnet-bot';
-  const CONI_IMG   = 'Maskot...png'; 
+  const WEBHOOK_URL = 'https://nurjana.app.n8n.cloud/webhook/iconnet-bot';
+  const CONI_IMG   = 'Maskot...png';
 
   const style = document.createElement('style');
   style.textContent = `
