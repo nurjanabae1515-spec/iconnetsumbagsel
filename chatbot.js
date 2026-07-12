@@ -240,25 +240,29 @@
     msgs.appendChild(loading);
     msgs.scrollTop = msgs.scrollHeight;
 
-  try {
-  const res  = await fetch(WEBHOOK_URL, {
-    method  : 'POST',
-    headers : { 'Content-Type': 'application/json' },
-    body    : JSON.stringify({ message: text })
-  });
+try {
+      const res  = await fetch(WEBHOOK_URL, {
+        method  : 'POST',
+        headers : { 'Content-Type': 'application/json' },
+        body    : JSON.stringify({ message: text })
+      });
 
-  const raw = await res.text();
-  let reply;
-  try {
-    const data = JSON.parse(raw);
-    reply = data.reply || data.output || data.message || raw;
-  } catch {
-    reply = raw; 
-  }
+      const raw = await res.text();
+      let reply;
+      try {
+        const data = JSON.parse(raw);
+        reply = data.reply || data.output || data.message || raw;
+      } catch {
+        reply = raw; // kalau bukan JSON, pakai teks mentahnya langsung
+      }
 
-  document.getElementById('coni-loading').remove();
-  msgs.innerHTML += `<div class="coni-bot">${reply.replace(/\n/g, '<br>')}</div>`;
-} catch {
-  document.getElementById('coni-loading').remove();
-  msgs.innerHTML += `<div class="coni-bot" style="color:red">Maaf, terjadi kesalahan. Coba lagi!</div>`;
-}
+      document.getElementById('coni-loading').remove();
+      msgs.innerHTML += `<div class="coni-bot">${reply.replace(/\n/g, '<br>')}</div>`;
+    } catch {
+      document.getElementById('coni-loading').remove();
+      msgs.innerHTML += `<div class="coni-bot" style="color:red">Maaf, terjadi kesalahan. Coba lagi!</div>`;
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+  };
+
+})();
