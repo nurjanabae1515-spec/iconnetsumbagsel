@@ -253,11 +253,15 @@ try {
         const data = JSON.parse(raw);
         reply = data.reply || data.output || data.message || raw;
       } catch {
-        reply = raw; // kalau bukan JSON, pakai teks mentahnya langsung
+        reply = raw; 
       }
 
-      // ubah **teks** jadi <b>teks</b> (bold beneran, tanpa tanda bintang)
-      const cleanReply = reply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+      let cleanReply = reply
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')   
+        .replace(/^### (.*$)/gm, '$1')           
+        .replace(/^## (.*$)/gm, '$1')           
+        .replace(/^# (.*$)/gm, '$1');            
 
       document.getElementById('coni-loading').remove();
       msgs.innerHTML += `<div class="coni-bot">${cleanReply.replace(/\n/g, '<br>')}</div>`;
