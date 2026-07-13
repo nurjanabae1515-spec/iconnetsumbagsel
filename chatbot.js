@@ -256,8 +256,11 @@ try {
         reply = raw; // kalau bukan JSON, pakai teks mentahnya langsung
       }
 
+      // ubah **teks** jadi <b>teks</b> (bold beneran, tanpa tanda bintang)
+      const cleanReply = reply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
       document.getElementById('coni-loading').remove();
-      msgs.innerHTML += `<div class="coni-bot">${reply.replace(/\n/g, '<br>')}</div>`;
+      msgs.innerHTML += `<div class="coni-bot">${cleanReply.replace(/\n/g, '<br>')}</div>`;
     } catch {
       document.getElementById('coni-loading').remove();
       msgs.innerHTML += `<div class="coni-bot" style="color:red">Maaf, terjadi kesalahan. Coba lagi!</div>`;
